@@ -18,7 +18,7 @@ import kotlin.random.Random
 class LikeAnimView : FrameLayout {
 
     private val likeImages = mutableListOf<Int>()
-    private val likeViewSizeSmall = 89
+    private val likeViewSize = 89 // 单个❤️的size
     private var likeImageIndex = 0
 
     constructor(context: Context) : this(context, null)
@@ -51,7 +51,7 @@ class LikeAnimView : FrameLayout {
 
     fun addLike() {
         val imageView = ImageView(context)
-        imageView.layoutParams = ViewGroup.LayoutParams(likeViewSizeSmall, likeViewSizeSmall)
+        imageView.layoutParams = ViewGroup.LayoutParams(likeViewSize, likeViewSize)
         imageView.setImageResource(likeImages[likeImageIndex++ % likeImages.size])
         // 指定初始位置为底部居中
         imageView.x = ((measuredWidth - imageView.layoutParams.width) / 2).toFloat()
