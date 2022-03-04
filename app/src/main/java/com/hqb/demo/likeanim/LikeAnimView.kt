@@ -10,7 +10,6 @@ import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import kotlin.math.pow
-import kotlin.random.Random
 
 /**
  * 赞飘❤️的动画视图
@@ -55,7 +54,7 @@ class LikeAnimView : FrameLayout {
         imageView.setImageResource(likeImages[likeImageIndex++ % likeImages.size])
         // 指定初始位置为底部居中
         imageView.x = ((measuredWidth - imageView.layoutParams.width) / 2).toFloat()
-        imageView.y = (measuredHeight - imageView.layoutParams.width).toFloat()
+        imageView.y = (measuredHeight - imageView.layoutParams.height).toFloat()
         this.addView(imageView)
 
         // 开启动画
@@ -97,18 +96,18 @@ class LikeAnimView : FrameLayout {
         val startPointF = PointF(target.x, target.y)
         // 结束点，顶部，给个随机范围
         val endPointF = PointF(
-            (measuredWidth / 2 + (if (Random.nextBoolean()) 1 else -1) * (0..(measuredWidth / 3)).random()).toFloat(),
+            (0..(measuredWidth - likeViewSize)).random().toFloat(),
             0f
         )
-        // 塞贝尔曲线第一个控制点
+        // 贝塞尔曲线第一个控制点
         val pointF1 = PointF(
-            Random.nextInt(measuredWidth - 100).toFloat(),
-            Random.nextInt(measuredHeight / 2).toFloat()
+            (0..(measuredWidth - likeViewSize)).random().toFloat(),
+            (0..measuredHeight / 2).random().toFloat()
         )
-        // 塞贝尔曲线第二个控制点
+        // 贝塞尔曲线第二个控制点
         val pointF2 = PointF(
-            Random.nextInt(measuredWidth - 100).toFloat(),
-            (Random.nextInt(measuredHeight / 2) + measuredHeight / 2).toFloat()
+            (0..(measuredWidth - likeViewSize)).random().toFloat(),
+            (0..measuredHeight / 2).random().toFloat() + measuredHeight / 2
         )
         // 估值器
         val evaluator = CurveEvaluator(pointF2, pointF1)
